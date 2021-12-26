@@ -4,6 +4,7 @@
   "description": "An language learning app that helps young children to learn new words in English.",
   "main": "index.js",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "mysql": "^2.18.1"
   },
   "devDependencies": {},
