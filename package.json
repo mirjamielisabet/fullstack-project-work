@@ -1,0 +1,24 @@
+{
+  "name": "fullstack-project-work",
+  "version": "1.0.0",
+  "description": "An language learning app that helps young children to learn new words in English.",
+  "main": "index.js",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mirjamielisabet/fullstack-project-work.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mirjamielisabet/fullstack-project-work/issues"
+  },
+  "homepage": "https://github.com/mirjamielisabet/fullstack-project-work#readme"
+}
