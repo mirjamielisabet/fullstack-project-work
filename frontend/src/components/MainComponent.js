@@ -3,6 +3,10 @@ import "../App.css";
 
 export class MainComponent extends React.Component {
   render() {
-    return <p>The Front page of the Application</p>;
+    return (
+      <div className="container">
+        <p>The Front page of the Application</p>
+      </div>
+    );
   }
 }
