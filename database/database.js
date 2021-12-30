@@ -8,3 +8,19 @@ const connection = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DB,
 });
+
+let connectionFunctions = {
+  findAll: () => {
+    return new Promise((resolve, reject) => {
+      connection.query("select * from words", (err, words) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(words);
+        }
+      });
+    });
+  },
+};
+
+module.exports = connectionFunctions;
