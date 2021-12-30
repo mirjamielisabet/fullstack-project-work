@@ -2,11 +2,13 @@ const connection = require("./database/database.js");
 const routes = require("./routes/words.js");
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
 const server = app.listen(8080, async () => {
   console.log(`Listening on port ${server.address().port}`);
 });
 
+app.use(cors());
 app.use("/words", routes);
 
 const shutdown = () => {
