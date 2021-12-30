@@ -10,6 +10,18 @@ const connection = mysql.createPool({
 });
 
 let connectionFunctions = {
+  close: () => {
+    return new Promise((resolve, reject) => {
+      connection.end((err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  },
+
   findAll: () => {
     return new Promise((resolve, reject) => {
       connection.query("select * from words", (err, words) => {
