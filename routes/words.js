@@ -13,4 +13,15 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  try {
+    let words = req.body;
+    let data = await connection.save(words);
+    words.id = data;
+    res.status(201).send(words);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
 module.exports = router;
