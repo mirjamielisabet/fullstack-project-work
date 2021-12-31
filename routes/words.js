@@ -24,4 +24,17 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/:id([0-9]+)", async (req, res) => {
+  try {
+    let data = await connection.deleteById(req.params.id);
+    if (data === 0) {
+      res.status(400).send(errormsg);
+    } else {
+      res.status(204).send(null);
+    }
+  } catch (err) {
+    res.status(500).send();
+  }
+});
+
 module.exports = router;
