@@ -20,9 +20,11 @@ const wordSchema = {
     },
     fin_word: {
       type: "string",
+      minLength: 1,
     },
     en_word: {
       type: "string",
+      minLength: 1,
     },
   },
   required: ["fin_word", "en_word"],
