@@ -71,6 +71,18 @@ let connectionFunctions = {
       }
     });
   },
+
+  deleteById: (id) => {
+    return new Promise((resolve, reject) => {
+      connection.query("delete from words where id = ?", id, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result.affectedRows);
+        }
+      });
+    });
+  },
 };
 
 module.exports = connectionFunctions;
