@@ -14,13 +14,32 @@ class App extends React.Component {
       data: [],
     };
     this.getData = this.getData.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
     this.getData();
   }
 
+  handleDelete(id) {
+    axios
+      .delete(`http://localhost:8080/words/${id}`)
+      .then((res) => {
+        this.setState((previousState) => {
+          return {
+            data: previousState.data.filter((d) => d.id !== id),
+          };
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   getData() {
+    this.setState({
+      data: [],
+    });
     axios
       .get("http://localhost:8080/words")
       .then((result) => {
@@ -46,7 +65,11 @@ class App extends React.Component {
           <Route
             path="/teacher"
             element={
-              <AdminComponent data={this.state.data} getData={this.getData} />
+              <AdminComponent
+                data={this.state.data}
+                getData={this.getData}
+                handleDelete={this.handleDelete}
+              />
             }
           />
         </Routes>
