@@ -1,5 +1,7 @@
 const mysql = require("mysql");
 require("dotenv").config();
+const Validator = require("jsonschema").Validator;
+const validator = new Validator();
 
 const connection = mysql.createPool({
   connectionLimit: 10,
@@ -8,6 +10,23 @@ const connection = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DB,
 });
+
+const wordSchema = {
+  type: "object",
+  properties: {
+    id: {
+      type: "number",
+      minimum: 1,
+    },
+    fin_word: {
+      type: "string",
+    },
+    en_word: {
+      type: "string",
+    },
+  },
+  required: ["fin_word", "en_word"],
+};
 
 let connectionFunctions = {
   close: () => {
@@ -31,6 +50,23 @@ let connectionFunctions = {
           resolve(words);
         }
       });
+    });
+  },
+
+  save: (words) => {
+    return new Promise((resolve, reject) => {
+      const validation = validator.validate(words, wordSchema);
+      if (validation.errors.length > 0) {
+        reject(validation.errors);
+      } else {
+        connection.query("insert into words set ?", words, (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result.insertId);
+          }
+        });
+      }
     });
   },
 };
