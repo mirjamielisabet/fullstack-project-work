@@ -71,7 +71,7 @@ export class AddWords extends React.Component {
             onChange={this.handleChange}
           />
         </div>
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit" style={{ marginTop: "5px" }}>
           Submit
         </Button>
       </Box>
