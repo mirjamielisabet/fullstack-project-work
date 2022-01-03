@@ -4,6 +4,7 @@ import { MainComponent } from "./components/MainComponent";
 import { UserComponent } from "./components/UserComponent";
 import { AdminComponent } from "./components/AdminComponent";
 import { NavigationBar } from "./components/NavigationComponent";
+import { Header } from "./components/HeaderComponent";
 import React from "react";
 const axios = require("axios");
 
@@ -70,6 +71,7 @@ class App extends React.Component {
     console.log(this.state.data);
     return (
       <BrowserRouter>
+        <Header />
         <NavigationBar />
         <Routes>
           <Route path="/" element={<MainComponent />} />
