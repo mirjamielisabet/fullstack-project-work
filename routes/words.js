@@ -24,11 +24,22 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.put("/:id([0-9]+)", async (req, res) => {
+  try {
+    let words = req.body;
+    await connection.update(words, req.params.id);
+    words.id = req.params.id;
+    res.status(201).send(words);
+  } catch (err) {
+    res.status(500).send();
+  }
+});
+
 router.delete("/:id([0-9]+)", async (req, res) => {
   try {
     let data = await connection.deleteById(req.params.id);
     if (data === 0) {
-      res.status(400).send(errormsg);
+      res.status(400).send();
     } else {
       res.status(204).send(null);
     }
