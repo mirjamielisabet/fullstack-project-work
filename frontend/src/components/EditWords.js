@@ -66,10 +66,14 @@ export class EditWords extends React.Component {
             onChange={this.handleChange}
           />
         </div>
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit" style={{ marginTop: "5px" }}>
           Save Changes
         </Button>{" "}
-        <Button variant="outlined" onClick={() => this.props.setEditingFalse()}>
+        <Button
+          variant="outlined"
+          style={{ marginTop: "5px" }}
+          onClick={() => this.props.setEditingFalse()}
+        >
           Cancel
         </Button>
       </Box>
