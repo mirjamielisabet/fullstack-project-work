@@ -16,30 +16,36 @@ import Paper from "@mui/material/Paper";
 export class AdminComponent extends React.Component {
   table() {
     return (
-      <TableContainer component={Paper}>
+      <TableContainer
+        sx={{ maxWidth: "800px", margin: "auto" }}
+        component={Paper}
+      >
         <Table
           sx={{ minWidth: 550, marginTop: "10px" }}
           aria-label="simple table"
         >
           <TableHead>
             <TableRow>
-              <TableCell style={{ width: "35%", fontWeight: "bold" }}>
+              <TableCell style={{ width: "40%", fontWeight: "bold" }}>
                 Finnish
               </TableCell>
-              <TableCell style={{ width: "35%", fontWeight: "bold" }}>
+              <TableCell style={{ width: "40%", fontWeight: "bold" }}>
                 English
               </TableCell>
-              <TableCell style={{ width: "15%", fontWeight: "bold" }}>
+              <TableCell style={{ width: "10%", fontWeight: "bold" }}>
                 Edit
               </TableCell>
-              <TableCell style={{ width: "15%", fontWeight: "bold" }}>
+              <TableCell style={{ width: "10%", fontWeight: "bold" }}>
                 Delete
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {this.props.data.map((words) => (
-              <TableRow key={words.id}>
+              <TableRow
+                key={words.id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
                 <TableCell> {words.fin_word} </TableCell>{" "}
                 <TableCell> {words.en_word} </TableCell>{" "}
                 <TableCell>
