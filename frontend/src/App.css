@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Eczar:wght@800&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 * {
   box-sizing: border-box;
@@ -44,4 +46,28 @@ body {
   background-color: #fffffe;
   padding: 20px;
   border-radius: 0.2em;
+}
+
+h1 {
+  text-decoration: underline 2px #90b4ce;
+  text-underline-position: under;
+}
+
+.header {
+  margin-bottom: 40px;
+  font-family: "Eczar", serif;
+  font-size: 3.7em;
+  color: #094067;
+}
+
+.material-icons {
+  color: #ef4565;
+  font-size: 0.9em;
+  position: relative;
+  top: -15px;
+  margin-left: -8px;
+}
+
+.CustomButton:hover {
+  color: #ef4565;
 }
