@@ -71,7 +71,13 @@ export class AddWords extends React.Component {
             onChange={this.handleChange}
           />
         </div>
-        <Button variant="contained" type="submit" style={{ marginTop: "5px" }}>
+
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{ ":hover": { backgroundColor: "#ef4565" } }}
+          style={{ marginTop: "5px" }}
+        >
           Submit
         </Button>
       </Box>
