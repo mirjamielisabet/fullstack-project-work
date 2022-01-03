@@ -72,6 +72,27 @@ let connectionFunctions = {
     });
   },
 
+  update: (words, id) => {
+    return new Promise((resolve, reject) => {
+      const validation = validator.validate(words, wordSchema);
+      if (validation.errors.length > 0) {
+        reject(validation.errors);
+      } else {
+        connection.query(
+          "update words set fin_word = ?, en_word = ? where id = ?",
+          [words.fin_word, words.en_word, id],
+          (err, result) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(result.affectedRows);
+            }
+          }
+        );
+      }
+    });
+  },
+
   deleteById: (id) => {
     return new Promise((resolve, reject) => {
       connection.query("delete from words where id = ?", id, (err, result) => {
