@@ -50,6 +50,7 @@ export class AdminComponent extends React.Component {
                 <TableCell> {words.en_word} </TableCell>{" "}
                 <TableCell>
                   <IconButton
+                    className={"CustomButton"}
                     aria-label="edit"
                     onClick={() => this.props.handleEdit(words)}
                   >
@@ -58,6 +59,7 @@ export class AdminComponent extends React.Component {
                 </TableCell>
                 <TableCell>
                   <IconButton
+                    className={"CustomButton"}
                     aria-label="delete"
                     onClick={() => this.props.handleDelete(words.id)}
                   >
