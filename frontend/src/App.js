@@ -12,9 +12,13 @@ class App extends React.Component {
     super(props);
     this.state = {
       data: [],
+      editing: false,
+      editingData: [],
     };
     this.getData = this.getData.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.setEditingFalse = this.setEditingFalse.bind(this);
   }
 
   componentDidMount() {
@@ -54,6 +58,14 @@ class App extends React.Component {
       });
   }
 
+  handleEdit(words) {
+    this.setState({ editing: true, editingData: words });
+  }
+
+  setEditingFalse() {
+    this.setState({ editing: false });
+  }
+
   render() {
     console.log(this.state.data);
     return (
@@ -69,6 +81,10 @@ class App extends React.Component {
                 data={this.state.data}
                 getData={this.getData}
                 handleDelete={this.handleDelete}
+                handleEdit={this.handleEdit}
+                setEditingFalse={this.setEditingFalse}
+                editing={this.state.editing}
+                editingData={this.state.editingData}
               />
             }
           />
