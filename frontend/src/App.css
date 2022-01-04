@@ -71,3 +71,7 @@ h1 {
 .CustomButton:hover {
   color: #ef4565;
 }
+
+.smalltext {
+  font-size: 0.85em;
+}
