@@ -26,6 +26,9 @@ const wordSchema = {
       type: "string",
       minLength: 1,
     },
+    tag: {
+      type: "string",
+    },
   },
   required: ["fin_word", "en_word"],
 };
@@ -79,13 +82,13 @@ let connectionFunctions = {
         reject(validation.errors);
       } else {
         connection.query(
-          "update words set fin_word = ?, en_word = ? where id = ?",
-          [words.fin_word, words.en_word, id],
-          (err, result) => {
+          "update words set fin_word = ?, en_word = ?, tag = ? where id = ?",
+          [words.fin_word, words.en_word, words.tag, id],
+          (err) => {
             if (err) {
               reject(err);
             } else {
-              resolve(result.affectedRows);
+              resolve();
             }
           }
         );
