@@ -61,7 +61,9 @@ export class EditWords extends React.Component {
             value={this.state.fin_word}
             onChange={this.handleChange}
             error={this.state.fin_word === ""}
-            helperText={this.state.fin_word === "" ? "Required!" : " "}
+            helperText={
+              this.state.fin_word === "" ? "This field must be filled" : " "
+            }
           />
           <TextField
             required
@@ -71,7 +73,9 @@ export class EditWords extends React.Component {
             value={this.state.en_word}
             onChange={this.handleChange}
             error={this.state.en_word === ""}
-            helperText={this.state.en_word === "" ? "Required!" : " "}
+            helperText={
+              this.state.en_word === "" ? "This field must be filled" : " "
+            }
           />
           <TextField
             name="tag"
