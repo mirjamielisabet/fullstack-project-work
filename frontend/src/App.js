@@ -77,7 +77,7 @@ class App extends React.Component {
           <Route path="/" element={<MainComponent />} />
           <Route path="/user" element={<UserComponent />} />
           <Route
-            path="/teacher"
+            path="/admin"
             element={
               <AdminComponent
                 data={this.state.data}
