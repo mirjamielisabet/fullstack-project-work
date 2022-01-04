@@ -13,6 +13,20 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:tag", async (req, res) => {
+  try {
+    let data = await connection.findByTag(req.params.tag);
+    if (data.length === 0) {
+      res.status(404).send();
+    } else {
+      res.status(200).send(data);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send("Invalid request");
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     let words = req.body;
