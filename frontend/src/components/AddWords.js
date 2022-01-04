@@ -40,7 +40,7 @@ export class AddWords extends React.Component {
         console.log(error);
       });
 
-    this.setState({ fin_word: "", en_word: "", tag: "" });
+    this.setState({ fin_word: "", en_word: "", tag: "", clicked: false });
   }
 
   render() {
