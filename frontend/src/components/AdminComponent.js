@@ -85,6 +85,7 @@ export class AdminComponent extends React.Component {
           <p>The Admin view of the Application</p>
           <br />
           <h2>Edit words</h2>
+          <p className="smalltext">* Required</p>
           <EditWords
             getData={this.props.getData}
             setEditingFalse={this.props.setEditingFalse}
