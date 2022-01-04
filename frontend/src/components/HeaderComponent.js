@@ -7,7 +7,7 @@ export class Header extends React.Component {
       <div className="header">
         <p>
           Learn English
-          <span class="material-icons">circle</span>
+          <span className="material-icons">circle</span>
         </p>
       </div>
     );
