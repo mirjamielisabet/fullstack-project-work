@@ -11,10 +11,10 @@ export class NavigationBar extends React.Component {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/user">User</Link>
+            <Link to="/user">Learner</Link>
           </li>
           <li>
-            <Link to="/teacher">Admin</Link>
+            <Link to="/admin">Teacher</Link>
           </li>
         </ul>
       </div>
