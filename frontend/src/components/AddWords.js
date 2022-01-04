@@ -11,6 +11,7 @@ export class AddWords extends React.Component {
     this.state = {
       fin_word: "",
       en_word: "",
+      tag: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -29,6 +30,7 @@ export class AddWords extends React.Component {
       .post("http://localhost:8080/words", {
         fin_word: this.state.fin_word,
         en_word: this.state.en_word,
+        tag: this.state.tag,
       })
       .then(() => {
         this.props.getData();
@@ -37,7 +39,7 @@ export class AddWords extends React.Component {
         console.log(error);
       });
 
-    this.setState({ fin_word: "", en_word: "" });
+    this.setState({ fin_word: "", en_word: "", tag: "" });
   }
 
   render() {
@@ -68,6 +70,14 @@ export class AddWords extends React.Component {
             label="English word"
             placeholder="Type the english word"
             value={this.state.en_word}
+            onChange={this.handleChange}
+          />
+          <TextField
+            name="tag"
+            id="outlined"
+            label="Tag"
+            placeholder="Type the tag"
+            value={this.state.tag}
             onChange={this.handleChange}
           />
         </div>
