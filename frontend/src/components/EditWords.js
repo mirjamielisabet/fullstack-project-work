@@ -11,6 +11,7 @@ export class EditWords extends React.Component {
     this.state = {
       fin_word: this.props.words.fin_word,
       en_word: this.props.words.en_word,
+      tag: this.props.words.tag,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -29,6 +30,7 @@ export class EditWords extends React.Component {
       .put(`http://localhost:8080/words/${this.props.words.id}`, {
         fin_word: this.state.fin_word,
         en_word: this.state.en_word,
+        tag: this.state.tag,
       })
       .then(() => {
         this.props.getData();
@@ -63,6 +65,13 @@ export class EditWords extends React.Component {
             id="outlined"
             label="Edit English word"
             value={this.state.en_word}
+            onChange={this.handleChange}
+          />
+          <TextField
+            name="tag"
+            id="outlined"
+            label="Edit Tag"
+            value={this.state.tag}
             onChange={this.handleChange}
           />
         </div>
