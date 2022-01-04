@@ -17,6 +17,7 @@ class App extends React.Component {
       editingData: [],
     };
     this.getData = this.getData.bind(this);
+    this.getDataByTag = this.getDataByTag.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.setEditingFalse = this.setEditingFalse.bind(this);
@@ -59,6 +60,24 @@ class App extends React.Component {
       });
   }
 
+  getDataByTag(tag) {
+    this.setState({
+      data: [],
+    });
+    axios
+      .get(`http://localhost:8080/words/${tag}`)
+      .then((result) => {
+        this.setState({
+          data: result.data.concat(this.state.data),
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          error,
+        });
+      });
+  }
+
   handleEdit(words) {
     this.setState({ editing: true, editingData: words });
   }
@@ -68,14 +87,22 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.data);
     return (
       <BrowserRouter>
         <Header />
         <NavigationBar />
         <Routes>
           <Route path="/" element={<MainComponent />} />
-          <Route path="/user" element={<UserComponent />} />
+          <Route
+            path="/user"
+            element={
+              <UserComponent
+                data={this.state.data}
+                getData={this.getData}
+                getDataByTag={this.getDataByTag}
+              />
+            }
+          />
           <Route
             path="/admin"
             element={
