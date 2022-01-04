@@ -107,6 +107,22 @@ let connectionFunctions = {
       });
     });
   },
+
+  findByTag: (tag) => {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        "select * from words where tag = ?",
+        tag,
+        (err, words) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(words);
+          }
+        }
+      );
+    });
+  },
 };
 
 module.exports = connectionFunctions;
