@@ -26,16 +26,19 @@ export class AdminComponent extends React.Component {
         >
           <TableHead>
             <TableRow>
-              <TableCell style={{ width: "40%", fontWeight: "bold" }}>
+              <TableCell style={{ width: "35%", fontWeight: "bold" }}>
                 Finnish
               </TableCell>
-              <TableCell style={{ width: "40%", fontWeight: "bold" }}>
+              <TableCell style={{ width: "35%", fontWeight: "bold" }}>
                 English
               </TableCell>
-              <TableCell style={{ width: "10%", fontWeight: "bold" }}>
+              <TableCell style={{ width: "20%", fontWeight: "bold" }}>
+                Tag
+              </TableCell>
+              <TableCell style={{ width: "5%", fontWeight: "bold" }}>
                 Edit
               </TableCell>
-              <TableCell style={{ width: "10%", fontWeight: "bold" }}>
+              <TableCell style={{ width: "5%", fontWeight: "bold" }}>
                 Delete
               </TableCell>
             </TableRow>
@@ -46,8 +49,9 @@ export class AdminComponent extends React.Component {
                 key={words.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell> {words.fin_word} </TableCell>{" "}
-                <TableCell> {words.en_word} </TableCell>{" "}
+                <TableCell> {words.fin_word} </TableCell>
+                <TableCell> {words.en_word} </TableCell>
+                <TableCell> {words.tag} </TableCell>
                 <TableCell>
                   <IconButton
                     className={"CustomButton"}
@@ -99,6 +103,7 @@ export class AdminComponent extends React.Component {
           <p>The Admin view of the Application</p>
           <br />
           <h2>Add new words</h2>
+          <p className="smalltext">* Required</p>
           <AddWords getData={this.props.getData} />
           <br />
           <br />
