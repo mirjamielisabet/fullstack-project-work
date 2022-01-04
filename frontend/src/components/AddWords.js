@@ -12,6 +12,7 @@ export class AddWords extends React.Component {
       fin_word: "",
       en_word: "",
       tag: "",
+      clicked: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -49,7 +50,7 @@ export class AddWords extends React.Component {
         sx={{
           "& .MuiTextField-root": { m: 1, width: "25ch" },
         }}
-        noValidate
+        Validate
         autoComplete="off"
         onSubmit={this.handleSubmit}
       >
@@ -62,6 +63,12 @@ export class AddWords extends React.Component {
             placeholder="Type the finnish word"
             value={this.state.fin_word}
             onChange={this.handleChange}
+            error={this.state.fin_word === "" && this.state.clicked === true}
+            helperText={
+              this.state.fin_word === "" && this.state.clicked === true
+                ? "This field must be filled"
+                : " "
+            }
           />
           <TextField
             required
@@ -71,6 +78,12 @@ export class AddWords extends React.Component {
             placeholder="Type the english word"
             value={this.state.en_word}
             onChange={this.handleChange}
+            error={this.state.en_word === "" && this.state.clicked === true}
+            helperText={
+              this.state.en_word === "" && this.state.clicked === true
+                ? "This field must be filled"
+                : " "
+            }
           />
           <TextField
             name="tag"
@@ -83,6 +96,7 @@ export class AddWords extends React.Component {
         </div>
 
         <Button
+          onClick={() => this.setState({ clicked: true })}
           variant="contained"
           type="submit"
           sx={{ ":hover": { backgroundColor: "#ef4565" } }}
