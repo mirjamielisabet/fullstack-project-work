@@ -48,24 +48,30 @@ export class EditWords extends React.Component {
         sx={{
           "& .MuiTextField-root": { m: 1, width: "25ch" },
         }}
-        noValidate
+        Validate
         autoComplete="off"
         onSubmit={this.handleSubmit}
       >
         <div>
           <TextField
+            required
             name="fin_word"
             id="outlined"
             label="Edit Finnish word"
             value={this.state.fin_word}
             onChange={this.handleChange}
+            error={this.state.fin_word === ""}
+            helperText={this.state.fin_word === "" ? "Required!" : " "}
           />
           <TextField
+            required
             name="en_word"
             id="outlined"
             label="Edit English word"
             value={this.state.en_word}
             onChange={this.handleChange}
+            error={this.state.en_word === ""}
+            helperText={this.state.en_word === "" ? "Required!" : " "}
           />
           <TextField
             name="tag"
