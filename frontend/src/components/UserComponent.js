@@ -15,6 +15,10 @@ export class UserComponent extends React.Component {
     this.resetState = this.resetState.bind(this);
   }
 
+  componentDidMount() {
+    this.props.getData();
+  }
+
   setPracticingState() {
     this.setState({ practicing: true });
   }
