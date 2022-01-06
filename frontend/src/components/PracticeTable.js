@@ -230,24 +230,30 @@ export class PracticeTable extends React.Component {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {this.props.data.map((words) => (
-                    <TableRow
-                      key={words.id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell> {words.en_word} </TableCell>
-                      <TableCell>
-                        {" "}
-                        <TextField
-                          name="inFinnish"
-                          id="outlined"
-                          label="In Finnish"
-                          value={this.state.fin_word}
-                          onChange={this.handleChange}
-                        />{" "}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {this.props.data.map((words, index, array) => {
+                    let name = words.fin_word;
+                    this.formLength = array.length;
+                    return (
+                      <TableRow
+                        key={words.id}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell> {words.en_word} </TableCell>
+                        <TableCell>
+                          {" "}
+                          <TextField
+                            name={name}
+                            id="outlined"
+                            label="In Finnish"
+                            value={this.state.name}
+                            onChange={this.handleChange}
+                          />{" "}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -258,6 +264,16 @@ export class PracticeTable extends React.Component {
               style={{ marginTop: "10px" }}
             >
               Get score
+            </Button>{" "}
+            <Button
+              variant="outlined"
+              sx={{
+                ":hover": { color: "#ef4565", border: "1px solid #ef4565" },
+              }}
+              style={{ marginTop: "10px" }}
+              onClick={() => this.clearForm()}
+            >
+              Clear
             </Button>{" "}
             <Button
               variant="outlined"
