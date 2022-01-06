@@ -94,7 +94,7 @@ class App extends React.Component {
         <Routes>
           <Route path="/" element={<MainComponent />} />
           <Route
-            path="/user"
+            path="/users"
             element={
               <UserComponent
                 data={this.state.data}
@@ -104,7 +104,7 @@ class App extends React.Component {
             }
           />
           <Route
-            path="/admin"
+            path="/admins"
             element={
               <AdminComponent
                 data={this.state.data}
