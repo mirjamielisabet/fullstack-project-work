@@ -14,6 +14,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 export class AdminComponent extends React.Component {
+  componentDidMount() {
+    this.props.getData();
+  }
+
   table() {
     return (
       <TableContainer
