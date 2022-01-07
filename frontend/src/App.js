@@ -15,6 +15,7 @@ class App extends React.Component {
       data: [],
       editing: false,
       editingData: [],
+      errormsg: "",
     };
     this.getData = this.getData.bind(this);
     this.getDataByTag = this.getDataByTag.bind(this);
@@ -45,6 +46,7 @@ class App extends React.Component {
   getData() {
     this.setState({
       data: [],
+      errormsg: "",
     });
     axios
       .get("http://localhost:8080/words")
@@ -54,8 +56,9 @@ class App extends React.Component {
         });
       })
       .catch((error) => {
+        console.log(error);
         this.setState({
-          error,
+          errormsg: error.response.status + " " + error.response.data,
         });
       });
   }
@@ -114,6 +117,7 @@ class App extends React.Component {
                 setEditingFalse={this.setEditingFalse}
                 editing={this.state.editing}
                 editingData={this.state.editingData}
+                errormsg={this.state.errormsg}
               />
             }
           />
