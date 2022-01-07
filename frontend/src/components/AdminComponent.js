@@ -12,10 +12,23 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 
 export class AdminComponent extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visibleTable: false,
+    };
+  }
+
+  showTable() {
     this.props.getData();
+    this.setState({ visibleTable: true });
+  }
+
+  closeTable() {
+    this.setState({ visibleTable: false });
   }
 
   table() {
@@ -99,6 +112,8 @@ export class AdminComponent extends React.Component {
           <br />
           <h2>All saved words</h2>
           <div>{this.table()}</div>
+          <br />
+          <div>{this.props.errormsg}</div>
         </div>
       );
     } else {
@@ -113,7 +128,37 @@ export class AdminComponent extends React.Component {
           <br />
           <br />
           <h2>All saved words</h2>
-          <div>{this.table()}</div>
+
+          {this.state.visibleTable === false && (
+            <div>
+              <Button
+                onClick={() => this.showTable()}
+                variant="outlined"
+                sx={{ ":hover": { backgroundColor: "#ef4565" } }}
+                style={{ marginTop: "5px" }}
+              >
+                Show All Saved Words
+              </Button>
+            </div>
+          )}
+
+          {this.state.visibleTable && (
+            <div>
+              <Button
+                onClick={() => this.closeTable()}
+                variant="outlined"
+                sx={{ ":hover": { backgroundColor: "#ef4565" } }}
+                style={{ marginTop: "5px" }}
+              >
+                Hide All Saved Words
+              </Button>
+              <br />
+              <br />
+              {this.table()}
+            </div>
+          )}
+          <br />
+          <div>{this.props.errormsg}</div>
         </div>
       );
     }
