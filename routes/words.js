@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
     data = await connection.findAll();
     res.status(200).send(data);
   } catch (err) {
-    console.log(err);
+    res.status(404).send("Requested data not found");
   }
 });
 
@@ -17,12 +17,11 @@ router.get("/:tag", async (req, res) => {
   try {
     let data = await connection.findByTag(req.params.tag);
     if (data.length === 0) {
-      res.status(404).send();
+      res.status(404).send("Requested data not found");
     } else {
       res.status(200).send(data);
     }
   } catch (err) {
-    console.log(err);
     res.status(400).send("Invalid request");
   }
 });
