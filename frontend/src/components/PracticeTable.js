@@ -144,7 +144,7 @@ export class PracticeTable extends React.Component {
                     this.formLength = array.length;
                     return (
                       <TableRow
-                        key={index}
+                        key={words.id}
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
