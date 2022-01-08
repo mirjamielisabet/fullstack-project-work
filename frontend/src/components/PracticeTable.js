@@ -10,6 +10,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 
 export class PracticeTable extends React.Component {
   constructor(props) {
@@ -30,11 +32,30 @@ export class PracticeTable extends React.Component {
     }
   }
 
+  alertBox() {
+    return (
+      <Alert
+        severity="success"
+        align="left"
+        sx={{ margin: "auto", maxWidth: "500px" }}
+        onClose={() => this.close()}
+      >
+        <AlertTitle>Vastausten tarkistus onnistui</AlertTitle>
+        {this.props.alertText}
+      </Alert>
+    );
+  }
+
   handleChange(event) {
     const target = event.target;
     const value = target.value;
     const name = target.name;
     this.setState({ [name]: value });
+  }
+
+  close() {
+    this.props.closeScore();
+    this.clearForm();
   }
 
   handleSubmit(event) {
@@ -59,7 +80,7 @@ export class PracticeTable extends React.Component {
     });
 
     if (score > 0 && answerInfo !== "Nämä vastaukset eivät olleet oikein: \n") {
-      alert(
+      this.props.setAlertText(
         "Pisteesi ovat: " +
           score +
           "/" +
@@ -72,7 +93,7 @@ export class PracticeTable extends React.Component {
           allCorrectAnswers
       );
     } else if (answerInfo !== "Nämä vastaukset eivät olleet oikein: \n") {
-      alert(
+      this.props.setAlertText(
         "Pisteesi ovat: " +
           score +
           "/" +
@@ -83,18 +104,17 @@ export class PracticeTable extends React.Component {
           allCorrectAnswers
       );
     } else if (score > 0) {
-      alert(
-        "Pisteesi ovat: " +
-          score +
-          "/" +
-          this.formLength +
-          "\n\n" +
-          usersCorrectAnswers +
-          "\n" +
-          allCorrectAnswers
+      this.props.setAlertText(
+        <div>
+          <p>
+            Pisteesi ovat: {score}/{this.formLength}
+          </p>
+          <p>{usersCorrectAnswers}</p>
+          <p>{allCorrectAnswers}</p>
+        </div>
       );
     } else {
-      alert(
+      this.props.setAlertText(
         "Pisteesi ovat: " +
           score +
           "/" +
@@ -103,7 +123,7 @@ export class PracticeTable extends React.Component {
           allCorrectAnswers
       );
     }
-    this.clearForm();
+    this.props.showScore();
   }
 
   render() {
@@ -112,90 +132,94 @@ export class PracticeTable extends React.Component {
         <div>
           <p>Harjoittele suomesta englanniksi</p>
           <br />
-          <Box
-            component="form"
-            sx={{
-              "& .MuiTextField-root": { m: 1, width: "25ch" },
-            }}
-            Validate
-            autoComplete="off"
-            onSubmit={this.handleSubmit}
-          >
-            <TableContainer
-              sx={{ maxWidth: "800px", margin: "auto" }}
-              component={Paper}
+          {this.props.visibleScore && this.alertBox()}
+          <br />
+          {this.props.visibleScore === false && (
+            <Box
+              component="form"
+              sx={{
+                "& .MuiTextField-root": { m: 1, width: "25ch" },
+              }}
+              Validate
+              autoComplete="off"
+              onSubmit={this.handleSubmit}
             >
-              <Table
-                sx={{ minWidth: 550, marginTop: "10px" }}
-                aria-label="simple table"
+              <TableContainer
+                sx={{ maxWidth: "800px", margin: "auto" }}
+                component={Paper}
               >
-                <TableHead>
-                  <TableRow>
-                    <TableCell style={{ width: "50%", fontWeight: "bold" }}>
-                      Finnish
-                    </TableCell>
-                    <TableCell style={{ width: "50%", fontWeight: "bold" }}>
-                      English
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {this.props.data.map((words, index, array) => {
-                    let name = words.en_word;
-                    this.formLength = array.length;
-                    return (
-                      <TableRow
-                        key={words.id}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell> {words.fin_word} </TableCell>
-                        <TableCell>
-                          {" "}
-                          <TextField
-                            name={name}
-                            id="outlined"
-                            label="Englanniksi"
-                            value={this.state.name}
-                            onChange={this.handleChange}
-                          />{" "}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <Button
-              variant="contained"
-              type="submit"
-              sx={{ ":hover": { backgroundColor: "#ef4565" } }}
-              style={{ marginTop: "10px" }}
-            >
-              Valmis
-            </Button>{" "}
-            <Button
-              variant="outlined"
-              sx={{
-                ":hover": { color: "#ef4565", border: "1px solid #ef4565" },
-              }}
-              style={{ marginTop: "10px" }}
-              onClick={() => this.clearForm()}
-            >
-              Tyhjennä
-            </Button>{" "}
-            <Button
-              variant="outlined"
-              sx={{
-                ":hover": { color: "#ef4565", border: "1px solid #ef4565" },
-              }}
-              style={{ marginTop: "10px" }}
-              onClick={() => this.props.resetState()}
-            >
-              Peruuta
-            </Button>
-          </Box>
+                <Table
+                  sx={{ minWidth: 550, marginTop: "10px" }}
+                  aria-label="simple table"
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell style={{ width: "50%", fontWeight: "bold" }}>
+                        Finnish
+                      </TableCell>
+                      <TableCell style={{ width: "50%", fontWeight: "bold" }}>
+                        English
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {this.props.data.map((words, index, array) => {
+                      let name = words.en_word;
+                      this.formLength = array.length;
+                      return (
+                        <TableRow
+                          key={words.id}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell> {words.fin_word} </TableCell>
+                          <TableCell>
+                            {" "}
+                            <TextField
+                              name={name}
+                              id="outlined"
+                              label="Englanniksi"
+                              value={this.state.name}
+                              onChange={this.handleChange}
+                            />{" "}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <Button
+                variant="contained"
+                type="submit"
+                sx={{ ":hover": { backgroundColor: "#ef4565" } }}
+                style={{ marginTop: "10px" }}
+              >
+                Valmis
+              </Button>{" "}
+              <Button
+                variant="outlined"
+                sx={{
+                  ":hover": { color: "#ef4565", border: "1px solid #ef4565" },
+                }}
+                style={{ marginTop: "10px" }}
+                onClick={() => this.clearForm()}
+              >
+                Tyhjennä
+              </Button>{" "}
+              <Button
+                variant="outlined"
+                sx={{
+                  ":hover": { color: "#ef4565", border: "1px solid #ef4565" },
+                }}
+                style={{ marginTop: "10px" }}
+                onClick={() => this.props.resetState()}
+              >
+                Peruuta
+              </Button>
+            </Box>
+          )}
         </div>
       );
     } else if (this.props.language === "en") {
@@ -203,90 +227,94 @@ export class PracticeTable extends React.Component {
         <div>
           <p>Harjoittele englannista suomeksi</p>
           <br />
-          <Box
-            component="form"
-            sx={{
-              "& .MuiTextField-root": { m: 1, width: "25ch" },
-            }}
-            noValidate
-            autoComplete="off"
-            onSubmit={this.handleSubmit}
-          >
-            <TableContainer
-              sx={{ maxWidth: "800px", margin: "auto" }}
-              component={Paper}
+          {this.props.visibleScore && this.alertBox()}
+          <br />
+          {this.props.visibleScore === false && (
+            <Box
+              component="form"
+              sx={{
+                "& .MuiTextField-root": { m: 1, width: "25ch" },
+              }}
+              noValidate
+              autoComplete="off"
+              onSubmit={this.handleSubmit}
             >
-              <Table
-                sx={{ minWidth: 550, marginTop: "10px" }}
-                aria-label="simple table"
+              <TableContainer
+                sx={{ maxWidth: "800px", margin: "auto" }}
+                component={Paper}
               >
-                <TableHead>
-                  <TableRow>
-                    <TableCell style={{ width: "50%", fontWeight: "bold" }}>
-                      English
-                    </TableCell>
-                    <TableCell style={{ width: "50%", fontWeight: "bold" }}>
-                      Finnish
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {this.props.data.map((words, index, array) => {
-                    let name = words.fin_word;
-                    this.formLength = array.length;
-                    return (
-                      <TableRow
-                        key={words.id}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell> {words.en_word} </TableCell>
-                        <TableCell>
-                          {" "}
-                          <TextField
-                            name={name}
-                            id="outlined"
-                            label="Suomeksi"
-                            value={this.state.name}
-                            onChange={this.handleChange}
-                          />{" "}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <Button
-              variant="contained"
-              type="submit"
-              sx={{ ":hover": { backgroundColor: "#ef4565" } }}
-              style={{ marginTop: "10px" }}
-            >
-              Valmis
-            </Button>{" "}
-            <Button
-              variant="outlined"
-              sx={{
-                ":hover": { color: "#ef4565", border: "1px solid #ef4565" },
-              }}
-              style={{ marginTop: "10px" }}
-              onClick={() => this.clearForm()}
-            >
-              Tyhjennä
-            </Button>{" "}
-            <Button
-              variant="outlined"
-              sx={{
-                ":hover": { color: "#ef4565", border: "1px solid #ef4565" },
-              }}
-              style={{ marginTop: "10px" }}
-              onClick={() => this.props.resetState()}
-            >
-              Peruuta
-            </Button>
-          </Box>
+                <Table
+                  sx={{ minWidth: 550, marginTop: "10px" }}
+                  aria-label="simple table"
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell style={{ width: "50%", fontWeight: "bold" }}>
+                        English
+                      </TableCell>
+                      <TableCell style={{ width: "50%", fontWeight: "bold" }}>
+                        Finnish
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {this.props.data.map((words, index, array) => {
+                      let name = words.fin_word;
+                      this.formLength = array.length;
+                      return (
+                        <TableRow
+                          key={words.id}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell> {words.en_word} </TableCell>
+                          <TableCell>
+                            {" "}
+                            <TextField
+                              name={name}
+                              id="outlined"
+                              label="Suomeksi"
+                              value={this.state.name}
+                              onChange={this.handleChange}
+                            />{" "}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <Button
+                variant="contained"
+                type="submit"
+                sx={{ ":hover": { backgroundColor: "#ef4565" } }}
+                style={{ marginTop: "10px" }}
+              >
+                Valmis
+              </Button>{" "}
+              <Button
+                variant="outlined"
+                sx={{
+                  ":hover": { color: "#ef4565", border: "1px solid #ef4565" },
+                }}
+                style={{ marginTop: "10px" }}
+                onClick={() => this.clearForm()}
+              >
+                Tyhjennä
+              </Button>{" "}
+              <Button
+                variant="outlined"
+                sx={{
+                  ":hover": { color: "#ef4565", border: "1px solid #ef4565" },
+                }}
+                style={{ marginTop: "10px" }}
+                onClick={() => this.props.resetState()}
+              >
+                Peruuta
+              </Button>
+            </Box>
+          )}
         </div>
       );
     } else {
