@@ -49,24 +49,30 @@ export class UserComponent extends React.Component {
     if (this.state.practicing) {
       return (
         <div className="container">
-          <h1>For Learner</h1>
-          <p>The User view of the Application</p>
+          <h1>Oppijalle</h1>
+          <p>
+            Valitse haluatko opetella sanoja suomesta englanniksi vai toisin
+            päin.
+          </p>
+          <p>
+            Painamalla "Takaisin" -painiketta pääset takaisin alkuvalikkoon.
+          </p>
           <br />
-          <h2>Practice</h2>
+          <h2>Harjoittele</h2>
           <br />
           <Button
             className={"CustomButton"}
             variant="text"
             onClick={() => this.setLanguage("fin")}
           >
-            From Finnish to English
+            Suomesta Englanniksi
           </Button>{" "}
           <Button
             className={"CustomButton"}
             variant="text"
             onClick={() => this.setLanguage("en")}
           >
-            From English to Finnish
+            Englannista Suomeksi
           </Button>
           <br />
           <Button
@@ -76,7 +82,7 @@ export class UserComponent extends React.Component {
             style={{ marginTop: "10px", marginBottom: "20px" }}
             onClick={() => this.resetState()}
           >
-            Back
+            Takaisin
           </Button>
           <br />
           <PracticeTable
@@ -91,10 +97,14 @@ export class UserComponent extends React.Component {
     } else {
       return (
         <div className="container">
-          <h1>For Learner</h1>
-          <p>The User view of the Application</p>
+          <h1>Oppijalle</h1>
+          <p>Valitse alla olevista vaihtoehdoista harjoiteltavat sanat. </p>
+          <p>
+            Voit valita kaikki tietokantaan tallennetut sanat painamalla "ALL"
+            -nappia tai valita tagien mukaan jaotelluista kategorioista.
+          </p>
           <br />
-          <h2>Practice</h2>
+          <h2>Harjoittele</h2>
           <Stack
             spacing={1}
             direction="row"
