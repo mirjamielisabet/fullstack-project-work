@@ -99,7 +99,11 @@ export class AdminComponent extends React.Component {
       return (
         <div className="container">
           <h1>For Teacher</h1>
-          <p>The Admin view of the Application</p>
+          <p>Here the Teacher or Admin can add, edit or delete word pairs.</p>
+          <p>
+            Adding tags for the word pairs enables practicing only certain
+            categories (for example colors, animals, fruits etc.)
+          </p>
           <br />
           <h2>Edit words</h2>
           <p className="smalltext">* Required</p>
@@ -120,7 +124,11 @@ export class AdminComponent extends React.Component {
       return (
         <div className="container">
           <h1>For Teacher</h1>
-          <p>The Admin view of the Application</p>
+          <p>Here the Teacher or Admin can add, edit or delete word pairs.</p>
+          <p>
+            Adding tags for the word pairs enables practicing only certain
+            categories (for example colors, animals, fruits etc.)
+          </p>
           <br />
           <h2>Add new words</h2>
           <p className="smalltext">* Required</p>
