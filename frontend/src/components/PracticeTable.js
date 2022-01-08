@@ -40,7 +40,9 @@ export class PracticeTable extends React.Component {
         sx={{ margin: "auto", maxWidth: "500px" }}
         onClose={() => this.close()}
       >
-        <AlertTitle>Vastausten tarkistus onnistui</AlertTitle>
+        <AlertTitle style={{ fontSize: "1.3em" }}>
+          Vastausten tarkistus onnistui
+        </AlertTitle>
         {this.props.alertText}
       </Alert>
     );
@@ -61,66 +63,133 @@ export class PracticeTable extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     let score = 0;
-    let answerInfo = "Nämä vastaukset eivät olleet oikein: \n";
-    let usersCorrectAnswers = "Hienoa! Nämä vastaukset olivat oikein: \n";
+    let usersWrongAnswers = [];
+    let usersCorrectAnswers = [];
 
     for (let key in this.state) {
       if (key.toLowerCase() === this.state[key].toLowerCase()) {
         score += 1;
-        usersCorrectAnswers += this.state[key] + "\n";
+        usersCorrectAnswers.push(
+          <span>
+            {this.state[key]}
+            <br />
+          </span>
+        );
       } else {
-        answerInfo += this.state[key] + " (Oikea vastaus: " + key + ") \n";
+        if (this.state[key] !== "") {
+          usersWrongAnswers.push(
+            <span>
+              {this.state[key]} (Oikea vastaus: {key}) <br />
+            </span>
+          );
+        }
       }
     }
 
-    let allCorrectAnswers = "Kaikki oikeat vastaukset: \n";
-    this.props.data.map((words) => {
-      return (allCorrectAnswers +=
-        words.fin_word + " = " + words.en_word + "\n");
+    let allCorrectAnswers = this.props.data.map((words) => {
+      return (
+        <span id={words.id}>
+          {words.fin_word} = {words.en_word}
+          <br />
+        </span>
+      );
     });
 
-    if (score > 0 && answerInfo !== "Nämä vastaukset eivät olleet oikein: \n") {
+    if (score > 0 && usersWrongAnswers.length !== 0) {
       this.props.setAlertText(
-        "Pisteesi ovat: " +
-          score +
-          "/" +
-          this.formLength +
-          "\n\n" +
-          usersCorrectAnswers +
-          "\n" +
-          answerInfo +
-          "\n" +
-          allCorrectAnswers
+        <div>
+          <p style={{ fontSize: "1.1em" }}>
+            <b>
+              Pisteesi ovat: {score}/{this.formLength}
+            </b>
+          </p>
+          <p>
+            <span style={{ fontSize: "1.1em", lineHeight: 1.6 }}>
+              Hienoa! Nämä vastaukset olivat oikein:
+            </span>{" "}
+            <br />
+            <i>{usersCorrectAnswers}</i>
+          </p>
+          <p>
+            <span style={{ fontSize: "1.1em", lineHeight: 1.6 }}>
+              Nämä vastaukset olivat väärin:
+            </span>{" "}
+            <br />
+            <i>{usersWrongAnswers}</i>
+          </p>
+          <p>
+            <span style={{ fontSize: "1.1em", lineHeight: 1.6 }}>
+              Kaikki oikeat vastaukset:
+            </span>
+            <br />
+            <i>{allCorrectAnswers}</i>
+          </p>
+        </div>
       );
-    } else if (answerInfo !== "Nämä vastaukset eivät olleet oikein: \n") {
+    } else if (usersWrongAnswers.length !== 0) {
       this.props.setAlertText(
-        "Pisteesi ovat: " +
-          score +
-          "/" +
-          this.formLength +
-          "\n\n" +
-          answerInfo +
-          "\n" +
-          allCorrectAnswers
+        <div>
+          <p style={{ fontSize: "1.1em" }}>
+            <b>
+              Pisteesi ovat: {score}/{this.formLength}
+            </b>
+          </p>
+          <p>
+            <span style={{ fontSize: "1.1em", lineHeight: 1.6 }}>
+              Nämä vastaukset olivat väärin:
+            </span>{" "}
+            <br />
+            <i>{usersWrongAnswers}</i>
+          </p>
+          <p>
+            <span style={{ fontSize: "1.1em", lineHeight: 1.6 }}>
+              Kaikki oikeat vastaukset:
+            </span>
+            <br />
+            <i>{allCorrectAnswers}</i>
+          </p>
+        </div>
       );
     } else if (score > 0) {
       this.props.setAlertText(
         <div>
-          <p>
-            Pisteesi ovat: {score}/{this.formLength}
+          <p style={{ fontSize: "1.1em" }}>
+            <b>
+              Pisteesi ovat: {score}/{this.formLength}
+            </b>
           </p>
-          <p>{usersCorrectAnswers}</p>
-          <p>{allCorrectAnswers}</p>
+          <p>
+            <span style={{ fontSize: "1.1em", lineHeight: 1.6 }}>
+              Hienoa! Nämä vastaukset olivat oikein:
+            </span>{" "}
+            <br />
+            <i>{usersCorrectAnswers}</i>
+          </p>
+          <p>
+            <span style={{ fontSize: "1.1em", lineHeight: 1.6 }}>
+              Kaikki oikeat vastaukset:
+            </span>
+            <br />
+            <i>{allCorrectAnswers}</i>
+          </p>
         </div>
       );
     } else {
       this.props.setAlertText(
-        "Pisteesi ovat: " +
-          score +
-          "/" +
-          this.formLength +
-          "\n\n" +
-          allCorrectAnswers
+        <div>
+          <p style={{ fontSize: "1.1em" }}>
+            <b>
+              Pisteesi ovat: {score}/{this.formLength}
+            </b>
+          </p>
+          <p>
+            <span style={{ fontSize: "1.1em", lineHeight: 1.6 }}>
+              Kaikki oikeat vastaukset:
+            </span>
+            <br />
+            <i>{allCorrectAnswers}</i>
+          </p>
+        </div>
       );
     }
     this.props.showScore();
