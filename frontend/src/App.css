@@ -76,3 +76,11 @@ h1 {
 .smalltext {
   font-size: 0.85em;
 }
+
+.footer {
+  background-color: #fffffe;
+  border-radius: 0.2em;
+  margin-top: 12px;
+  padding: 10px;
+  font-size: 0.9em;
+}
