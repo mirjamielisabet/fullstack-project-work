@@ -5,6 +5,7 @@ import { UserComponent } from "./components/UserComponent";
 import { AdminComponent } from "./components/AdminComponent";
 import { NavigationBar } from "./components/NavigationComponent";
 import { Header } from "./components/HeaderComponent";
+import { Footer } from "./components/FooterComponent";
 import React from "react";
 const axios = require("axios");
 
@@ -129,6 +130,7 @@ class App extends React.Component {
             }
           />
         </Routes>
+        <Footer />
       </BrowserRouter>
     );
   }
