@@ -29,6 +29,7 @@ class App extends React.Component {
   }
 
   handleDelete(id) {
+    this.setState({ errormsg: "" });
     axios
       .delete(`http://localhost:8080/words/${id}`)
       .then((res) => {
@@ -40,6 +41,9 @@ class App extends React.Component {
       })
       .catch((error) => {
         console.log(error);
+        this.setState({
+          errormsg: error.response.status + " " + error.response.data,
+        });
       });
   }
 
@@ -66,6 +70,7 @@ class App extends React.Component {
   getDataByTag(tag) {
     this.setState({
       data: [],
+      errormsg: "",
     });
     axios
       .get(`http://localhost:8080/words/${tag}`)
@@ -75,8 +80,9 @@ class App extends React.Component {
         });
       })
       .catch((error) => {
+        console.log(error);
         this.setState({
-          error,
+          errormsg: error.response.status + " " + error.response.data,
         });
       });
   }
@@ -103,6 +109,7 @@ class App extends React.Component {
                 data={this.state.data}
                 getData={this.getData}
                 getDataByTag={this.getDataByTag}
+                errormsg={this.state.errormsg}
               />
             }
           />
