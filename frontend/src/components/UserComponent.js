@@ -11,8 +11,13 @@ export class UserComponent extends React.Component {
     this.state = {
       practicing: false,
       language: "",
+      visibleScore: false,
+      alertText: "",
     };
     this.resetState = this.resetState.bind(this);
+    this.showScore = this.showScore.bind(this);
+    this.closeScore = this.closeScore.bind(this);
+    this.setAlertText = this.setAlertText.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +40,18 @@ export class UserComponent extends React.Component {
 
   setLanguage(language) {
     this.setState({ language: language });
+  }
+
+  showScore() {
+    this.setState({ visibleScore: true });
+  }
+
+  closeScore() {
+    this.setState({ visibleScore: false });
+  }
+
+  setAlertText(text) {
+    this.setState({ alertText: text });
   }
 
   render() {
@@ -89,6 +106,11 @@ export class UserComponent extends React.Component {
             data={this.props.data}
             resetState={this.resetState}
             language={this.state.language}
+            showScore={this.showScore}
+            closeScore={this.closeScore}
+            visibleScore={this.state.visibleScore}
+            setAlertText={this.setAlertText}
+            alertText={this.state.alertText}
           />
           <br />
           <div>{this.props.errormsg}</div>
