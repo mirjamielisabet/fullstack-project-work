@@ -13,6 +13,7 @@ export class AddWords extends React.Component {
       en_word: "",
       tag: "",
       clicked: false,
+      errormsg: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -27,6 +28,7 @@ export class AddWords extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({ errormsg: "" });
     axios
       .post("http://localhost:8080/words", {
         fin_word: this.state.fin_word,
@@ -38,6 +40,9 @@ export class AddWords extends React.Component {
       })
       .catch((error) => {
         console.log(error);
+        this.setState({
+          errormsg: error.response.status + " " + error.response.data,
+        });
       });
 
     this.setState({ fin_word: "", en_word: "", tag: "", clicked: false });
@@ -45,66 +50,70 @@ export class AddWords extends React.Component {
 
   render() {
     return (
-      <Box
-        component="form"
-        sx={{
-          "& .MuiTextField-root": { m: 1, width: "25ch" },
-        }}
-        Validate
-        autoComplete="off"
-        onSubmit={this.handleSubmit}
-      >
-        <div>
-          <TextField
-            required
-            name="fin_word"
-            id="outlined-required"
-            label="Finnish word"
-            placeholder="Type the finnish word"
-            value={this.state.fin_word}
-            onChange={this.handleChange}
-            error={this.state.fin_word === "" && this.state.clicked === true}
-            helperText={
-              this.state.fin_word === "" && this.state.clicked === true
-                ? "This field must be filled"
-                : " "
-            }
-          />
-          <TextField
-            required
-            name="en_word"
-            id="outlined-required"
-            label="English word"
-            placeholder="Type the english word"
-            value={this.state.en_word}
-            onChange={this.handleChange}
-            error={this.state.en_word === "" && this.state.clicked === true}
-            helperText={
-              this.state.en_word === "" && this.state.clicked === true
-                ? "This field must be filled"
-                : " "
-            }
-          />
-          <TextField
-            name="tag"
-            id="outlined"
-            label="Tag"
-            placeholder="Type the tag"
-            value={this.state.tag}
-            onChange={this.handleChange}
-          />
-        </div>
-
-        <Button
-          onClick={() => this.setState({ clicked: true })}
-          variant="contained"
-          type="submit"
-          sx={{ ":hover": { backgroundColor: "#ef4565" } }}
-          style={{ marginTop: "5px" }}
+      <div>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": { m: 1, width: "25ch" },
+          }}
+          Validate
+          autoComplete="off"
+          onSubmit={this.handleSubmit}
         >
-          Submit
-        </Button>
-      </Box>
+          <div>
+            <TextField
+              required
+              name="fin_word"
+              id="outlined-required"
+              label="Finnish word"
+              placeholder="Type the finnish word"
+              value={this.state.fin_word}
+              onChange={this.handleChange}
+              error={this.state.fin_word === "" && this.state.clicked === true}
+              helperText={
+                this.state.fin_word === "" && this.state.clicked === true
+                  ? "This field must be filled"
+                  : " "
+              }
+            />
+            <TextField
+              required
+              name="en_word"
+              id="outlined-required"
+              label="English word"
+              placeholder="Type the english word"
+              value={this.state.en_word}
+              onChange={this.handleChange}
+              error={this.state.en_word === "" && this.state.clicked === true}
+              helperText={
+                this.state.en_word === "" && this.state.clicked === true
+                  ? "This field must be filled"
+                  : " "
+              }
+            />
+            <TextField
+              name="tag"
+              id="outlined"
+              label="Tag"
+              placeholder="Type the tag"
+              value={this.state.tag}
+              onChange={this.handleChange}
+            />
+          </div>
+
+          <Button
+            onClick={() => this.setState({ clicked: true })}
+            variant="contained"
+            type="submit"
+            sx={{ ":hover": { backgroundColor: "#ef4565" } }}
+            style={{ marginTop: "5px" }}
+          >
+            Submit
+          </Button>
+        </Box>
+        <br />
+        {this.state.errormsg}
+      </div>
     );
   }
 }
