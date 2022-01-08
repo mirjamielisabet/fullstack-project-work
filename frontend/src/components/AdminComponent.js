@@ -134,7 +134,9 @@ export class AdminComponent extends React.Component {
               <Button
                 onClick={() => this.showTable()}
                 variant="outlined"
-                sx={{ ":hover": { backgroundColor: "#ef4565" } }}
+                sx={{
+                  ":hover": { color: "#ef4565", border: "1px solid #ef4565" },
+                }}
                 style={{ marginTop: "5px" }}
               >
                 Show All Saved Words
@@ -147,7 +149,9 @@ export class AdminComponent extends React.Component {
               <Button
                 onClick={() => this.closeTable()}
                 variant="outlined"
-                sx={{ ":hover": { backgroundColor: "#ef4565" } }}
+                sx={{
+                  ":hover": { color: "#ef4565", border: "1px solid #ef4565" },
+                }}
                 style={{ marginTop: "5px" }}
               >
                 Hide All Saved Words
