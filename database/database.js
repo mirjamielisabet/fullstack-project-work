@@ -20,7 +20,7 @@ const wordSchema = {
     },
     fin_word: {
       type: "string",
-      minLength: 1,
+      minLength: 2,
     },
     en_word: {
       type: "string",
