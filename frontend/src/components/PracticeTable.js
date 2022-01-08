@@ -32,7 +32,10 @@ export class PracticeTable extends React.Component {
 
   handleChange(event) {
     const target = event.target;
-    const value = target.value;
+    let value = target.value;
+    if (value === null) {
+      value = "-";
+    }
     const name = target.name;
     this.setState({ [name]: value });
   }
@@ -40,27 +43,27 @@ export class PracticeTable extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     let score = 0;
-    let answerInfo = "This/these answers weren't correct: \n";
-    let usersCorrectAnswers = "Well Done! This/these answers were correct: \n";
+    let answerInfo = "Nämä vastaukset eivät olleet oikein: \n";
+    let usersCorrectAnswers = "Hienoa! Nämä vastaukset olivat oikein: \n";
 
     for (let key in this.state) {
       if (key.toLowerCase() === this.state[key].toLowerCase()) {
         score += 1;
         usersCorrectAnswers += this.state[key] + "\n";
       } else {
-        answerInfo += this.state[key] + " (Correct answer: " + key + ") \n";
+        answerInfo += this.state[key] + " (Oikea vastaus: " + key + ") \n";
       }
     }
 
-    let allCorrectAnswers = "All correct answers: \n";
+    let allCorrectAnswers = "Kaikki oikeat vastaukset: \n";
     this.props.data.map((words) => {
       return (allCorrectAnswers +=
         words.fin_word + " = " + words.en_word + "\n");
     });
 
-    if (score > 0 && answerInfo !== "This/these answers weren't correct: \n") {
+    if (score > 0 && answerInfo !== "Nämä vastaukset eivät olleet oikein: \n") {
       alert(
-        "Your score is: " +
+        "Pisteesi ovat: " +
           score +
           "/" +
           this.formLength +
@@ -71,9 +74,9 @@ export class PracticeTable extends React.Component {
           "\n" +
           allCorrectAnswers
       );
-    } else if (answerInfo !== "This/these answers weren't correct: \n") {
+    } else if (answerInfo !== "Nämä vastaukset eivät olleet oikein: \n") {
       alert(
-        "Your score is: " +
+        "Pisteesi ovat: " +
           score +
           "/" +
           this.formLength +
@@ -84,7 +87,7 @@ export class PracticeTable extends React.Component {
       );
     } else if (score > 0) {
       alert(
-        "Your score is: " +
+        "Pisteesi ovat: " +
           score +
           "/" +
           this.formLength +
@@ -95,7 +98,7 @@ export class PracticeTable extends React.Component {
       );
     } else {
       alert(
-        "Your score is: " +
+        "Pisteesi ovat: " +
           score +
           "/" +
           this.formLength +
@@ -103,13 +106,14 @@ export class PracticeTable extends React.Component {
           allCorrectAnswers
       );
     }
+    this.clearForm();
   }
 
   render() {
     if (this.props.language === "fin") {
       return (
         <div>
-          <p>Practice from Finnish to English</p>
+          <p>Harjoittele suomesta englanniksi</p>
           <br />
           <Box
             component="form"
@@ -155,7 +159,7 @@ export class PracticeTable extends React.Component {
                           <TextField
                             name={name}
                             id="outlined"
-                            label="In English"
+                            label="Englanniksi"
                             value={this.state.name}
                             onChange={this.handleChange}
                           />{" "}
@@ -172,7 +176,7 @@ export class PracticeTable extends React.Component {
               sx={{ ":hover": { backgroundColor: "#ef4565" } }}
               style={{ marginTop: "10px" }}
             >
-              Get score
+              Valmis
             </Button>{" "}
             <Button
               variant="outlined"
@@ -182,7 +186,7 @@ export class PracticeTable extends React.Component {
               style={{ marginTop: "10px" }}
               onClick={() => this.clearForm()}
             >
-              Clear
+              Tyhjennä
             </Button>{" "}
             <Button
               variant="outlined"
@@ -192,7 +196,7 @@ export class PracticeTable extends React.Component {
               style={{ marginTop: "10px" }}
               onClick={() => this.props.resetState()}
             >
-              Cancel
+              Peruuta
             </Button>
           </Box>
         </div>
@@ -200,7 +204,7 @@ export class PracticeTable extends React.Component {
     } else if (this.props.language === "en") {
       return (
         <div>
-          <p>Practice from English to Finnish</p>
+          <p>Harjoittele englannista suomeksi</p>
           <br />
           <Box
             component="form"
@@ -246,7 +250,7 @@ export class PracticeTable extends React.Component {
                           <TextField
                             name={name}
                             id="outlined"
-                            label="In Finnish"
+                            label="Suomeksi"
                             value={this.state.name}
                             onChange={this.handleChange}
                           />{" "}
@@ -263,7 +267,7 @@ export class PracticeTable extends React.Component {
               sx={{ ":hover": { backgroundColor: "#ef4565" } }}
               style={{ marginTop: "10px" }}
             >
-              Get score
+              Valmis
             </Button>{" "}
             <Button
               variant="outlined"
@@ -273,7 +277,7 @@ export class PracticeTable extends React.Component {
               style={{ marginTop: "10px" }}
               onClick={() => this.clearForm()}
             >
-              Clear
+              Tyhjennä
             </Button>{" "}
             <Button
               variant="outlined"
@@ -283,7 +287,7 @@ export class PracticeTable extends React.Component {
               style={{ marginTop: "10px" }}
               onClick={() => this.props.resetState()}
             >
-              Cancel
+              Peruuta
             </Button>
           </Box>
         </div>
