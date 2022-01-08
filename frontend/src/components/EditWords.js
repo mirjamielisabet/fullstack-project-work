@@ -12,6 +12,7 @@ export class EditWords extends React.Component {
       fin_word: this.props.words.fin_word,
       en_word: this.props.words.en_word,
       tag: this.props.words.tag,
+      errormsg: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -26,6 +27,7 @@ export class EditWords extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({ errormsg: "" });
     axios
       .put(`http://localhost:8080/words/${this.props.words.id}`, {
         fin_word: this.state.fin_word,
@@ -38,70 +40,77 @@ export class EditWords extends React.Component {
       })
       .catch((error) => {
         console.log(error);
+        this.setState({
+          errormsg: error.response.status + " " + error.response.data,
+        });
       });
   }
 
   render() {
     return (
-      <Box
-        component="form"
-        sx={{
-          "& .MuiTextField-root": { m: 1, width: "25ch" },
-        }}
-        Validate
-        autoComplete="off"
-        onSubmit={this.handleSubmit}
-      >
-        <div>
-          <TextField
-            required
-            name="fin_word"
-            id="outlined"
-            label="Edit Finnish word"
-            value={this.state.fin_word}
-            onChange={this.handleChange}
-            error={this.state.fin_word === ""}
-            helperText={
-              this.state.fin_word === "" ? "This field must be filled" : " "
-            }
-          />
-          <TextField
-            required
-            name="en_word"
-            id="outlined"
-            label="Edit English word"
-            value={this.state.en_word}
-            onChange={this.handleChange}
-            error={this.state.en_word === ""}
-            helperText={
-              this.state.en_word === "" ? "This field must be filled" : " "
-            }
-          />
-          <TextField
-            name="tag"
-            id="outlined"
-            label="Edit Tag"
-            value={this.state.tag}
-            onChange={this.handleChange}
-          />
-        </div>
-        <Button
-          variant="contained"
-          type="submit"
-          sx={{ ":hover": { backgroundColor: "#ef4565" } }}
-          style={{ marginTop: "5px" }}
+      <div>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": { m: 1, width: "25ch" },
+          }}
+          Validate
+          autoComplete="off"
+          onSubmit={this.handleSubmit}
         >
-          Save Changes
-        </Button>{" "}
-        <Button
-          variant="outlined"
-          sx={{ ":hover": { color: "#ef4565", border: "1px solid #ef4565" } }}
-          style={{ marginTop: "5px" }}
-          onClick={() => this.props.setEditingFalse()}
-        >
-          Cancel
-        </Button>
-      </Box>
+          <div>
+            <TextField
+              required
+              name="fin_word"
+              id="outlined"
+              label="Edit Finnish word"
+              value={this.state.fin_word}
+              onChange={this.handleChange}
+              error={this.state.fin_word === ""}
+              helperText={
+                this.state.fin_word === "" ? "This field must be filled" : " "
+              }
+            />
+            <TextField
+              required
+              name="en_word"
+              id="outlined"
+              label="Edit English word"
+              value={this.state.en_word}
+              onChange={this.handleChange}
+              error={this.state.en_word === ""}
+              helperText={
+                this.state.en_word === "" ? "This field must be filled" : " "
+              }
+            />
+            <TextField
+              name="tag"
+              id="outlined"
+              label="Edit Tag"
+              value={this.state.tag}
+              onChange={this.handleChange}
+            />
+          </div>
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{ ":hover": { backgroundColor: "#ef4565" } }}
+            style={{ marginTop: "5px" }}
+          >
+            Save Changes
+          </Button>{" "}
+          <Button
+            variant="outlined"
+            sx={{ ":hover": { color: "#ef4565", border: "1px solid #ef4565" } }}
+            style={{ marginTop: "5px" }}
+            onClick={() => this.props.setEditingFalse()}
+          >
+            Cancel
+          </Button>
+        </Box>
+        <br />
+        {this.state.errormsg}
+      </div>
     );
   }
 }
