@@ -32,10 +32,7 @@ export class PracticeTable extends React.Component {
 
   handleChange(event) {
     const target = event.target;
-    let value = target.value;
-    if (value === null) {
-      value = "-";
-    }
+    const value = target.value;
     const name = target.name;
     this.setState({ [name]: value });
   }
