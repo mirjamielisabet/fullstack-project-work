@@ -84,6 +84,8 @@ export class UserComponent extends React.Component {
             resetState={this.resetState}
             language={this.state.language}
           />
+          <br />
+          <div>{this.props.errormsg}</div>
         </div>
       );
     } else {
@@ -120,6 +122,8 @@ export class UserComponent extends React.Component {
             ))}
           </Stack>
           <br />
+          <br />
+          <div>{this.props.errormsg}</div>
         </div>
       );
     }
