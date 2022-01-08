@@ -12,6 +12,7 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 
 export class PracticeTable extends React.Component {
   constructor(props) {
@@ -44,6 +45,10 @@ export class PracticeTable extends React.Component {
           Vastausten tarkistus onnistui
         </AlertTitle>
         {this.props.alertText}
+        <br />
+        <p style={{ fontSize: "0.95em" }}>
+          Sulje tämä ikkuna jatkaaksesi harjoittelua!
+        </p>
       </Alert>
     );
   }
@@ -105,15 +110,17 @@ export class PracticeTable extends React.Component {
           </p>
           <p>
             <span style={{ fontSize: "1.1em", lineHeight: 1.6 }}>
-              Hienoa! Nämä vastaukset olivat oikein:
-            </span>{" "}
+              Hienoa!{" "}
+              <EmojiEventsIcon style={{ position: "relative", top: "3px" }} />
+              <br /> Nämä vastaukset olivat oikein:
+            </span>
             <br />
             <i>{usersCorrectAnswers}</i>
           </p>
           <p>
             <span style={{ fontSize: "1.1em", lineHeight: 1.6 }}>
               Nämä vastaukset olivat väärin:
-            </span>{" "}
+            </span>
             <br />
             <i>{usersWrongAnswers}</i>
           </p>
@@ -160,7 +167,9 @@ export class PracticeTable extends React.Component {
           </p>
           <p>
             <span style={{ fontSize: "1.1em", lineHeight: 1.6 }}>
-              Hienoa! Nämä vastaukset olivat oikein:
+              Hienoa!{" "}
+              <EmojiEventsIcon style={{ position: "relative", top: "3px" }} />
+              <br /> Nämä vastaukset olivat oikein:
             </span>{" "}
             <br />
             <i>{usersCorrectAnswers}</i>
