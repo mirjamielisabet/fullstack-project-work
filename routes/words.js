@@ -6,7 +6,7 @@ router.use(express.json());
 
 router.get("/", async (req, res) => {
   try {
-    data = await connection.findAll();
+    let data = await connection.findAll();
     res.status(200).send(data);
   } catch (err) {
     res.status(404).send("Requested data not found");
@@ -16,13 +16,9 @@ router.get("/", async (req, res) => {
 router.get("/:tag", async (req, res) => {
   try {
     let data = await connection.findByTag(req.params.tag);
-    if (data.length === 0) {
-      res.status(404).send("Requested data not found");
-    } else {
-      res.status(200).send(data);
-    }
+    res.status(200).send(data);
   } catch (err) {
-    res.status(400).send("Invalid request");
+    res.status(404).send("Requested data not found");
   }
 });
 
@@ -33,7 +29,11 @@ router.post("/", async (req, res) => {
     words.id = data;
     res.status(201).send(words);
   } catch (err) {
-    res.status(400).send(err);
+    res
+      .status(400)
+      .send(
+        "Bad Request: Posting the data failed. Check the inputted data: the text must be at least one (english) or two (finnish) character(s) long"
+      );
   }
 });
 
@@ -44,20 +44,20 @@ router.put("/:id([0-9]+)", async (req, res) => {
     words.id = req.params.id;
     res.status(201).send(words);
   } catch (err) {
-    res.status(500).send();
+    res
+      .status(400)
+      .send(
+        "Bad Request: Editing failed. Check the inputted data: the text must be at least one (english) or two (finnish) character(s) long"
+      );
   }
 });
 
 router.delete("/:id([0-9]+)", async (req, res) => {
   try {
-    let data = await connection.deleteById(req.params.id);
-    if (data === 0) {
-      res.status(400).send();
-    } else {
-      res.status(204).send(null);
-    }
+    await connection.deleteById(req.params.id);
+    res.status(204).send(null);
   } catch (err) {
-    res.status(500).send();
+    res.status(400).send("Bad Request: Cannot delete");
   }
 });
 
