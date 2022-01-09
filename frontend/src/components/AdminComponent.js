@@ -23,6 +23,7 @@ export class AdminComponent extends React.Component {
       visibleTable: false,
       showByTag: false,
     };
+    this.resetState = this.resetState.bind(this);
   }
 
   showTable() {
@@ -129,9 +130,9 @@ export class AdminComponent extends React.Component {
           <h2>Edit words</h2>
           <p className="smalltext">* Required</p>
           <EditWords
-            getData={this.props.getData}
             setEditingFalse={this.props.setEditingFalse}
             words={this.props.editingData}
+            resetState={this.resetState}
           />
           <br />
           <br />
