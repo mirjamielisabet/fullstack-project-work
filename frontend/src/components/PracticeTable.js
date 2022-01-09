@@ -211,7 +211,7 @@ export class PracticeTable extends React.Component {
           <p>Harjoittele suomesta englanniksi</p>
           <br />
           {this.props.visibleScore && this.alertBox()}
-          <br />
+
           {this.props.visibleScore === false && (
             <Box
               component="form"
@@ -306,7 +306,7 @@ export class PracticeTable extends React.Component {
           <p>Harjoittele englannista suomeksi</p>
           <br />
           {this.props.visibleScore && this.alertBox()}
-          <br />
+
           {this.props.visibleScore === false && (
             <Box
               component="form"
