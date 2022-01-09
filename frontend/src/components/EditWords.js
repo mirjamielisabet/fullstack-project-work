@@ -61,6 +61,7 @@ export class EditWords extends React.Component {
           <div>
             <TextField
               required
+              autoFocus
               name="fin_word"
               id="outlined"
               label="Edit Finnish word"
