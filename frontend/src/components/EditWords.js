@@ -35,7 +35,7 @@ export class EditWords extends React.Component {
         tag: this.state.tag,
       })
       .then(() => {
-        this.props.getData();
+        this.props.resetState();
         this.props.setEditingFalse();
       })
       .catch((error) => {
