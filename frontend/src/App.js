@@ -126,6 +126,7 @@ class App extends React.Component {
                 editing={this.state.editing}
                 editingData={this.state.editingData}
                 errormsg={this.state.errormsg}
+                getDataByTag={this.getDataByTag}
               />
             }
           />
