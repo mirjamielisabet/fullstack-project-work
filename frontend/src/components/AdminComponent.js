@@ -13,22 +13,35 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export class AdminComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       visibleTable: false,
+      showByTag: false,
     };
   }
 
   showTable() {
     this.props.getData();
-    this.setState({ visibleTable: true });
+    this.setState({ visibleTable: true, showByTag: false });
   }
 
   closeTable() {
     this.setState({ visibleTable: false });
+  }
+
+  onClick(tag) {
+    this.props.getDataByTag(tag);
+    this.setState({ showByTag: true });
+  }
+
+  resetState() {
+    this.props.getData();
+    this.setState({ showByTag: false });
   }
 
   table() {
@@ -95,6 +108,14 @@ export class AdminComponent extends React.Component {
     );
   }
   render() {
+    const uniqueTags = [];
+    this.props.data.map((words) => {
+      if (uniqueTags.indexOf(words.tag) === -1) {
+        uniqueTags.push(words.tag);
+      }
+      return uniqueTags;
+    });
+
     if (this.props.editing) {
       return (
         <div className="container">
@@ -162,9 +183,50 @@ export class AdminComponent extends React.Component {
                 }}
                 style={{ marginTop: "5px" }}
               >
-                Hide All Saved Words
+                Hide Saved Words
               </Button>
               <br />
+              <br />
+
+              <h3>Show words by tag</h3>
+              {this.state.showByTag === false && (
+                <Stack
+                  spacing={1}
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center"
+                  sx={{ margin: "auto" }}
+                >
+                  {uniqueTags.map((tag) => (
+                    <Button
+                      className={"CustomButton"}
+                      key={tag}
+                      variant="text"
+                      onClick={() => this.onClick(tag)}
+                    >
+                      {tag}
+                    </Button>
+                  ))}
+                </Stack>
+              )}
+              {this.state.showByTag && (
+                <div>
+                  <Button
+                    variant="outlined"
+                    startIcon={<ArrowBackIcon />}
+                    sx={{
+                      ":hover": {
+                        color: "#ef4565",
+                        border: "1px solid #ef4565",
+                      },
+                    }}
+                    style={{ marginTop: "10px", marginBottom: "20px" }}
+                    onClick={() => this.resetState()}
+                  >
+                    Back to all words
+                  </Button>
+                </div>
+              )}
               <br />
               {this.table()}
             </div>
