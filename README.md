@@ -1,7 +1,7 @@
 ## Learn English
 
 An language learning app that helps young children to learn new words in English.
-At the moment, the app supports only learning from Finnish to English or vice versa.
+At the moment, the app supports learning only from Finnish to English or vice versa.
 
 This app has been created as a part of the Backend development course in TAMK (Tampere University of Applied Sciences).
 
