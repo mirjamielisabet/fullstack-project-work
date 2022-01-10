@@ -41,7 +41,7 @@ export class EditWords extends React.Component {
     event.preventDefault();
     this.setState({ errormsg: "" });
     axios
-      .put(`http://localhost:8080/words/${this.props.words.id}`, {
+      .put(`/words/${this.props.words.id}`, {
         fin_word: this.state.fin_word,
         en_word: this.state.en_word,
         tag: this.state.tag,
