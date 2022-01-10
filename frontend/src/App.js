@@ -69,7 +69,7 @@ class App extends React.Component {
       errormsg: "",
     });
     axios
-      .get("http://localhost:8080/words")
+      .get("/words")
       .then((result) => {
         this.setState({
           data: result.data.concat(this.state.data),
