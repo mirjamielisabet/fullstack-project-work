@@ -44,7 +44,7 @@ class App extends React.Component {
   handleDelete(id) {
     this.setState({ errormsg: "" });
     axios
-      .delete(`http://localhost:8080/words/${id}`)
+      .delete(`/words/${id}`)
       .then((res) => {
         this.setState((previousState) => {
           return {
@@ -69,7 +69,7 @@ class App extends React.Component {
       errormsg: "",
     });
     axios
-      .get("words")
+      .get("/words")
       .then((result) => {
         this.setState({
           data: result.data.concat(this.state.data),
@@ -93,7 +93,7 @@ class App extends React.Component {
       errormsg: "",
     });
     axios
-      .get(`http://localhost:8080/words/${tag}`)
+      .get(`/words/${tag}`)
       .then((result) => {
         this.setState({
           data: result.data.concat(this.state.data),
