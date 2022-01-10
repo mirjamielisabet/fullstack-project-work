@@ -7,6 +7,11 @@ This app has been created as a part of the Backend development course in TAMK (T
 
 Find the App at [Heroku](https://learn-english-fullstackproject.herokuapp.com/)
 
+## Screenshots
+
+<img width="734" alt="screenshot-1" src="https://user-images.githubusercontent.com/77788900/148817716-a61b4d1a-63c4-4036-9e3e-590b0ea9074a.png">
+
+
 ## Technologies / Built with
 
 - Frontend: React, [Material.ui](https://mui.com/) library
