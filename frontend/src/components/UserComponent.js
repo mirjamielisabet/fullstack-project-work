@@ -5,6 +5,9 @@ import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { PracticeTable } from "./PracticeTable";
 
+/**
+ * Class consists of the user's/pupil's view of the application: returns the view where user can practice the saved word pairs.
+ */
 export class UserComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -20,36 +23,63 @@ export class UserComponent extends React.Component {
     this.setAlertText = this.setAlertText.bind(this);
   }
 
+  /**
+   * When component mounts calls the getData function.
+   */
   componentDidMount() {
     this.props.getData();
   }
 
+  /**
+   * Sets the state's practicing attribute's value to true.
+   */
   setPracticingState() {
     this.setState({ practicing: true });
   }
 
+  /**
+   * Sets the state's practicing attribute's value to false and empties the language attributes value. Calls getData function.
+   */
   resetState() {
     this.setState({ practicing: false, language: "" });
     this.props.getData();
   }
 
+  /**
+   * Sets the state's practicing attribute's value to true, calls getDataByTag function and passes on the tag to the function.
+   * @param {string} tag - The tag on the basis of which the data is retrieved
+   */
   onClick(tag) {
     this.setState({ practicing: true });
     this.props.getDataByTag(tag);
   }
 
+  /**
+   * Sets the state's language attribute's value according to the parameter.
+   * @param {string} language - The language from which user chooses to practice words
+   */
   setLanguage(language) {
     this.setState({ language: language });
   }
 
+  /**
+   * Sets the state's visibleScore attribute's value to true.
+   */
   showScore() {
     this.setState({ visibleScore: true });
   }
 
+  /**
+   * Sets the state's visibleScore attribute's value to false.
+   */
   closeScore() {
     this.setState({ visibleScore: false });
   }
 
+  /**
+   * Sets the state's alertText attribute's value according to the parameter.
+   * @param {HTMLElement} text - Consists of the feedback and results of the user's practice
+   */
   setAlertText(text) {
     this.setState({ alertText: text });
   }
