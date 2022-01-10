@@ -9,6 +9,10 @@ import { Footer } from "./components/FooterComponent";
 import React from "react";
 const axios = require("axios");
 
+/**
+ * Class that returns the application.
+ * @author Mirjami Laiho
+ */
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -25,10 +29,18 @@ class App extends React.Component {
     this.setEditingFalse = this.setEditingFalse.bind(this);
   }
 
+  /**
+   * When component mounts calls the getData function.
+   */
   componentDidMount() {
     this.getData();
   }
 
+  /**
+   * Handles the deletion of the data: by using axios deletes the data that haves the given id.
+   * Then, according to the deletion, alters the data array at the state.
+   * @param {number} id - The id on the basis of which the data is deleted
+   */
   handleDelete(id) {
     this.setState({ errormsg: "" });
     axios
@@ -48,6 +60,9 @@ class App extends React.Component {
       });
   }
 
+  /**
+   * Retrieves the data from the database: first empties the data array and then by using axios gets the data and saves it to the state.
+   */
   getData() {
     this.setState({
       data: [],
@@ -68,6 +83,10 @@ class App extends React.Component {
       });
   }
 
+  /**
+   * Retrieves the data from the database, filterd by the tag: by using axios gets the data and saves it to the state.
+   * @param {string} tag - The tag on the basis of which the data is retrieved
+   */
   getDataByTag(tag) {
     this.setState({
       data: [],
@@ -88,10 +107,17 @@ class App extends React.Component {
       });
   }
 
+  /**
+   * Sets the state's editing attribute's value to true and saves the data that is being edited to the state.
+   * @param {Array} words - consists of the data of the word pair being edited
+   */
   handleEdit(words) {
     this.setState({ editing: true, editingData: words });
   }
 
+  /**
+   * Sets the state's editing attribute's value to false.
+   */
   setEditingFalse() {
     this.setState({ editing: false });
   }
