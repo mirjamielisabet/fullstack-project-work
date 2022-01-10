@@ -1,6 +1,9 @@
 import React from "react";
 import "../App.css";
 
+/**
+ * Class returns the front page component of the application.
+ */
 export class MainComponent extends React.Component {
   render() {
     return (
