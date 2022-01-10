@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 
+/**
+ * Class returns the navigation bar component of the application.
+ */
 export class NavigationBar extends React.Component {
   render() {
     return (
