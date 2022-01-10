@@ -16,6 +16,10 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
+/**
+ * Class that contains the teacher's/admin's view of the application:
+ * returns the view that enables adding, editing, deleting and viewing the word pairs.
+ */
 export class AdminComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -26,25 +30,44 @@ export class AdminComponent extends React.Component {
     this.resetState = this.resetState.bind(this);
   }
 
+  /**
+   * Displays the table that consists of the all saved word pairs:
+   * calls the getData function and sets the state's visibleTable attribute's value to true and showByTag's value to false.
+   */
   showTable() {
     this.props.getData();
     this.setState({ visibleTable: true, showByTag: false });
   }
 
+  /**
+   * Closes the table that consists of the saved word pairs: sets the state's visibleTable attribute's value to false.
+   */
   closeTable() {
     this.setState({ visibleTable: false });
   }
 
+  /**
+   * Shows the data filtered by tag: calls getDataByTag function and passes on the tag to the function,
+   * sets the state's showByTag attribute's value to true.
+   * @param {string} tag - The tag on the basis of which the data is retrieved
+   */
   onClick(tag) {
     this.props.getDataByTag(tag);
     this.setState({ showByTag: true });
   }
 
+  /**
+   * Calls the getData function and sets the state's showByTag attribute's value to false.
+   */
   resetState() {
     this.props.getData();
     this.setState({ showByTag: false });
   }
 
+  /**
+   * Returns the TableContainer component that consists of the data retrieved from the database and buttons for deleting or editing the data.
+   * @returns {TableContainer} - the component that includes word pairs, tags, edit buttons and delete buttons
+   */
   table() {
     return (
       <TableContainer
@@ -108,6 +131,7 @@ export class AdminComponent extends React.Component {
       </TableContainer>
     );
   }
+
   render() {
     const uniqueTags = [];
     this.props.data.map((words) => {
