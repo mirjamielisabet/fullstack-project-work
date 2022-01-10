@@ -3,12 +3,13 @@ const routes = require("./routes/words.js");
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const port = process.env.PORT || 8080;
 
 /**
  *
  * @author Mirjami Laiho
  */
-const server = app.listen(8080, async () => {
+const server = app.listen(port, async () => {
   console.log(`Listening on port ${server.address().port}`);
 });
 
