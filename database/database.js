@@ -1,5 +1,4 @@
 const mysql = require("mysql");
-require("dotenv").config();
 const Validator = require("jsonschema").Validator;
 const validator = new Validator();
 
