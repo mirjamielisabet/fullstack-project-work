@@ -5,6 +5,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 
+/**
+ * Class that contains the form for adding new word pairs to the database, returns the form component.
+ */
 export class AddWords extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +22,10 @@ export class AddWords extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  /**
+   * Handles the change in the input fields: saves the input to the state.
+   * @param {object} event
+   */
   handleChange(event) {
     const target = event.target;
     const value = target.value;
@@ -26,6 +33,11 @@ export class AddWords extends React.Component {
     this.setState({ [name]: value });
   }
 
+  /**
+   * Handles the submitting of the form: by using axios posts the inputted data from state to the database.
+   * Then updates the states data array by calling the getData function and empties the state's attributes.
+   * @param {object} event
+   */
   handleSubmit(event) {
     event.preventDefault();
     this.setState({ errormsg: "" });
