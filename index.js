@@ -4,11 +4,16 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
+/**
+ *
+ * @author Mirjami Laiho
+ */
 const server = app.listen(8080, async () => {
   console.log(`Listening on port ${server.address().port}`);
 });
 
 app.use(cors());
+app.use(express.static("frontend/build"));
 app.use("/words", routes);
 
 const shutdown = () => {
