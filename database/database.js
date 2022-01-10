@@ -3,13 +3,15 @@ require("dotenv").config();
 const Validator = require("jsonschema").Validator;
 const validator = new Validator();
 
-const connection = mysql.createPool({
+let config = {
+  host: "mydb.tamk.fi",
+  user: process.env.user,
+  password: process.env.password,
+  database: process.env.database,
   connectionLimit: 10,
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DB,
-});
+};
+
+const connection = mysql.createPool(config);
 
 const wordSchema = {
   type: "object",
@@ -33,7 +35,15 @@ const wordSchema = {
   required: ["fin_word", "en_word"],
 };
 
+/**
+ * A module that includes all the connection functions needed between the database and the application.
+ * @module connectionFunctions
+ */
 let connectionFunctions = {
+  /**
+   *
+   * @returns {Promise}
+   */
   close: () => {
     return new Promise((resolve, reject) => {
       connection.end((err) => {
@@ -46,6 +56,10 @@ let connectionFunctions = {
     });
   },
 
+  /**
+   *
+   * @returns {Promise}
+   */
   findAll: () => {
     return new Promise((resolve, reject) => {
       connection.query("select * from words", (err, words) => {
@@ -58,6 +72,11 @@ let connectionFunctions = {
     });
   },
 
+  /**
+   *
+   * @param {*} words
+   * @returns {Promise}
+   */
   save: (words) => {
     return new Promise((resolve, reject) => {
       const validation = validator.validate(words, wordSchema);
@@ -75,6 +94,12 @@ let connectionFunctions = {
     });
   },
 
+  /**
+   *
+   * @param {*} words
+   * @param {*} id
+   * @returns {Promise}
+   */
   update: (words, id) => {
     return new Promise((resolve, reject) => {
       const validation = validator.validate(words, wordSchema);
@@ -96,6 +121,11 @@ let connectionFunctions = {
     });
   },
 
+  /**
+   * Returns ...
+   * @param {*} id - the id based on which a row is removed from the database
+   * @returns {Promise} - represents the affected rows after deletion or error message
+   */
   deleteById: (id) => {
     return new Promise((resolve, reject) => {
       connection.query("delete from words where id = ?", id, (err, result) => {
@@ -108,6 +138,11 @@ let connectionFunctions = {
     });
   },
 
+  /**
+   * Returns the requested data from the database
+   * @param {string} tag - the tag by which the database is filtered
+   * @returns {Promise} - represents the requested data or error message
+   */
   findByTag: (tag) => {
     return new Promise((resolve, reject) => {
       connection.query(
