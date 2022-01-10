@@ -5,6 +5,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 
+/**
+ * Class that contains the form for editing the saved word pairs, returns the form component.
+ */
 export class EditWords extends React.Component {
   constructor(props) {
     super(props);
@@ -18,6 +21,10 @@ export class EditWords extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  /**
+   * Handles the change in the input fields: saves the value to the state.
+   * @param {object} event
+   */
   handleChange(event) {
     const target = event.target;
     const value = target.value;
@@ -25,6 +32,11 @@ export class EditWords extends React.Component {
     this.setState({ [name]: value });
   }
 
+  /**
+   * Handles the submitting of the form: by using axios saves the inputted data to the database.
+   * Then calls the resetState function and sets editing to false by calling setEditingFalse function.
+   * @param {object} event
+   */
   handleSubmit(event) {
     event.preventDefault();
     this.setState({ errormsg: "" });
