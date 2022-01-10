@@ -42,7 +42,7 @@ export class AddWords extends React.Component {
     event.preventDefault();
     this.setState({ errormsg: "" });
     axios
-      .post("http://localhost:8080/words", {
+      .post("/words", {
         fin_word: this.state.fin_word,
         en_word: this.state.en_word,
         tag: this.state.tag,
