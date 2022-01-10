@@ -2,6 +2,9 @@ import React from "react";
 import "../App.css";
 import CopyrightIcon from "@mui/icons-material/Copyright";
 
+/**
+ * Class returns the footer component of the application.
+ */
 export class Footer extends React.Component {
   render() {
     return (
