@@ -1,12 +1,13 @@
 const mysql = require("mysql");
+require("dotenv").config();
 const Validator = require("jsonschema").Validator;
 const validator = new Validator();
 
 let config = {
   host: "mydb.tamk.fi",
-  user: process.env.user,
-  password: process.env.password,
-  database: process.env.database,
+  user: process.env.user || process.env.DB_USER,
+  password: process.env.password || process.env.DB_PASSWORD,
+  database: process.env.database || process.env.DB_DB,
   connectionLimit: 10,
 };
 
