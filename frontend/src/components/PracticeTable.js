@@ -14,6 +14,9 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 
+/**
+ * Class returns the table/form component that enables practicing the word pairs: includes the checking and the feedback of the user's input.
+ */
 export class PracticeTable extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +27,9 @@ export class PracticeTable extends React.Component {
     this.clearForm = this.clearForm.bind(this);
   }
 
+  /**
+   * Empties the input fields and values from the state.
+   */
   clearForm() {
     Array.from(document.querySelectorAll("input")).forEach(
       (input) => (input.value = "")
@@ -33,6 +39,10 @@ export class PracticeTable extends React.Component {
     }
   }
 
+  /**
+   * Returns the Alert component that consists of the feedback and results of the user's practice.
+   * @returns {Alert} - the component that shows user the feedback and score
+   */
   alertBox() {
     return (
       <Alert
@@ -53,6 +63,10 @@ export class PracticeTable extends React.Component {
     );
   }
 
+  /**
+   * Handles the change in the input fields: saves the value to the state.
+   * @param {object} event
+   */
   handleChange(event) {
     const target = event.target;
     const value = target.value;
@@ -60,11 +74,19 @@ export class PracticeTable extends React.Component {
     this.setState({ [name]: value });
   }
 
+  /**
+   * Closes the Alert element that shows user the score and feedback by calling the closeScore function and the clearForm function.
+   */
   close() {
     this.props.closeScore();
     this.clearForm();
   }
 
+  /**
+   * Handles the submitting of the form: checks the answers and based on them compiles the feedback and score.
+   * Saves the feedback by calling setAlertText function and after that calls the showScore function.
+   * @param {object} event
+   */
   handleSubmit(event) {
     event.preventDefault();
     let score = 0;
