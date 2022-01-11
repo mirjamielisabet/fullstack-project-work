@@ -2,8 +2,16 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../database/database.js");
 
+/**
+ * Middleware function: parses incoming requests with JSON payloads.
+ */
 router.use(express.json());
 
+/**
+ * Route for retrieving all data from words.
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware
+ */
 router.get("/", async (req, res) => {
   try {
     let data = await connection.findAll();
@@ -13,6 +21,11 @@ router.get("/", async (req, res) => {
   }
 });
 
+/**
+ * Route for retrieving data from words based on tag.
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware
+ */
 router.get("/:tag", async (req, res) => {
   try {
     let data = await connection.findByTag(req.params.tag);
@@ -22,6 +35,11 @@ router.get("/:tag", async (req, res) => {
   }
 });
 
+/**
+ * Route for posting data to words.
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware
+ */
 router.post("/", async (req, res) => {
   try {
     let words = req.body;
@@ -37,6 +55,11 @@ router.post("/", async (req, res) => {
   }
 });
 
+/**
+ * Route for updating already existing data from words.
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware
+ */
 router.put("/:id([0-9]+)", async (req, res) => {
   try {
     let words = req.body;
@@ -52,6 +75,11 @@ router.put("/:id([0-9]+)", async (req, res) => {
   }
 });
 
+/**
+ * Route for deleting data from words.
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware
+ */
 router.delete("/:id([0-9]+)", async (req, res) => {
   try {
     await connection.deleteById(req.params.id);
@@ -60,5 +88,10 @@ router.delete("/:id([0-9]+)", async (req, res) => {
     res.status(400).send("Bad Request: Cannot delete");
   }
 });
+
+/**
+ * Routes for routing.
+ * @module routes/words
+ */
 
 module.exports = router;
