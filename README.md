@@ -11,7 +11,8 @@ Find the App at [Heroku](https://learn-english-fullstackproject.herokuapp.com/)
 
 ## Screenshots
 
-<img width="450" alt="screenshot-1" src="https://user-images.githubusercontent.com/77788900/148819594-38bbd637-b6e0-48f5-87d4-0f8d98834b5b.png">  <img width="450" alt="screenshot-2" src="https://user-images.githubusercontent.com/77788900/148819609-7c44f22f-0092-465e-bf33-7094229da25a.png">
+<img width="450" alt="screenshot-1" src="https://user-images.githubusercontent.com/77788900/148819594-38bbd637-b6e0-48f5-87d4-0f8d98834b5b.png">  
+<img width="450" alt="screenshot-2" src="https://user-images.githubusercontent.com/77788900/148819609-7c44f22f-0092-465e-bf33-7094229da25a.png">
 <img width="450" alt="screenshot-3" src="https://user-images.githubusercontent.com/77788900/148819633-f9194df5-e0ad-4410-b232-69a52e31a7ac.png">
 
 ## Technologies / Built with
