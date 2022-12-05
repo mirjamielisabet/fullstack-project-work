@@ -5,8 +5,6 @@ At the moment, the app supports learning only from Finnish to English or vice ve
 
 This app has been created as a part of the Backend development course in TAMK (Tampere University of Applied Sciences).
 
-Find the App at [Heroku](https://learn-english-fullstackproject.herokuapp.com/)
-
 ## Screenshots
 
 <img width="450" alt="screenshot-1" src="https://user-images.githubusercontent.com/77788900/148819594-38bbd637-b6e0-48f5-87d4-0f8d98834b5b.png">  
